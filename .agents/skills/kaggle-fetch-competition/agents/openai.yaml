@@ -1,0 +1,4 @@
+interface:
+  display_name: "Kaggle Competition Onboarding"
+  short_description: "コンペ情報・調査・EDAを一括オンボーディング"
+  default_prompt: "$kaggle-fetch-competition を使って、COMPETITION のコンペをデータ取得から調査・EDA導入までオンボーディングしてください。"

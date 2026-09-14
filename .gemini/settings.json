@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/schemas/settings.schema.json",
+  "mcpServers": {
+    "kaggle": {
+      "httpUrl": "https://www.kaggle.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${KAGGLE_API_TOKEN}"
+      },
+      "timeout": 30000,
+      "description": "Kaggle MCP server for competition data and experiment workflows."
+    }
+  }
+}

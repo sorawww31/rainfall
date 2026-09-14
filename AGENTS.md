@@ -1,0 +1,62 @@
+<!--
+AGENTS.md
+Where: repository root.
+What: Shared operating instructions for Codex, Cursor, Claude Code, GitHub Copilot, and Gemini.
+Why: Keep agent behavior consistent while each tool reads its own adapter file.
+-->
+
+# AGENTS.md
+
+Motto: "Small, clear, safe steps in Japanese - always grounded in real docs."
+
+## Principles
+
+- Keep changes minimal, safe, and reversible.
+- Prefer clarity over cleverness; simplify over complexity.
+- Avoid new dependencies unless necessary; remove them when possible.
+- Work in Japanese for plans, progress, and final summaries unless the user asks otherwise.
+
+## Knowledge And Libraries
+
+- Before coding against an external API or library, verify the current behavior from official docs.
+- When a `context()` MCP server is available, call `resolve_library-id` and then `get-library-docs` before coding.
+- If `context()` is unavailable, use the most direct official docs or local CLI help and say what was unavailable.
+- If requirements are ambiguous, security-sensitive, or would change a UX/API contract, pause and ask.
+
+## Repository Workflow
+
+- Plan: Share a short plan before major edits; prefer small, reviewable diffs.
+- Read: Identify and read the relevant files fully before changing them.
+- Implement: Keep scope tight and prefer the existing project patterns.
+- Verify: Re-read affected code after edits, then run focused tests or static checks.
+- Docs: Update documentation when behavior, commands, config, or workflow changes.
+- Reflect: Fix the root cause and consider adjacent regression risks.
+
+## Project Conventions
+
+- Keep Python modules single-purpose and aim for files under 300 LOC.
+- Add a brief file header to new source or docs files explaining where, what, and why.
+- Prefer clear comments for assumptions, rationale, and non-obvious logic.
+- Centralize tuneable runtimes in `config.py`; avoid magic numbers in code and tests.
+- Do not commit secrets. Use environment variables such as `KAGGLE_API_TOKEN`.
+
+## Common Commands
+
+- Install/sync dev dependencies: `make uv-setup`
+- Run sample experiment: `uv run experiments/exp000_sample/run.py exp=001`
+- Run tests: `uv run pytest`
+- Lint/format check: `uv run ruff check .`
+- Start Docker shell: `make bash`
+- Start Jupyter with uv: `make uv-jupyter`
+
+## Agent Asset Sources
+
+- Shared instructions source: `AGENTS.md`
+- Shared skill source: `.agents/skills/*/SKILL.md`
+- Shared command source: `.agents/commands/*.md`
+- Generated adapters are refreshed by `uv run python tools/sync_agent_assets.py`.
+- Verify generated adapters with `uv run python tools/sync_agent_assets.py --check`.
+
+## Kaggle Competition Onboarding## This Repository's Agents
+このリポジトリはML実験用のリポジトリのため、各コードには、シンプルさを何より優先せよ。冗長な表現とうは必要ない
+コーディングのコメントは日本語で行う.

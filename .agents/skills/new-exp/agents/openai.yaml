@@ -1,0 +1,4 @@
+interface:
+  display_name: "New Exp"
+  short_description: "Start a copied Kaggle experiment branch"
+  default_prompt: "Use $new-exp to copy a base experiment, create the branch, commit the init copy, and request a scoped plan."

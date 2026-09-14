@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plan Create"
+  short_description: "Create implementation plans from a template"
+  default_prompt: "Use $plan-create to draft an implementation design for this request."

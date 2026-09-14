@@ -1,0 +1,9 @@
+# .codex/config.toml
+# Where: Codex project configuration.
+# What: Registers the shared Kaggle MCP server for this repository.
+# Why: Let Codex use the same Kaggle tools as the other agent clients without storing secrets.
+
+[mcp_servers.kaggle]
+url = "https://www.kaggle.com/mcp"
+bearer_token_env_var = "KAGGLE_API_TOKEN"
+

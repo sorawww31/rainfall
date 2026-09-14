@@ -1,0 +1,4 @@
+interface:
+  display_name: "Kaggle to Notion"
+  short_description: "Log Kaggle experiment results to Notion"
+  default_prompt: "Use $kaggle-to-notion to record exp026_absmax in Notion."

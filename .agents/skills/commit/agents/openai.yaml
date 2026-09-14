@@ -1,0 +1,4 @@
+interface:
+  display_name: "Commit Changes"
+  short_description: "Commit current changes safely"
+  default_prompt: "Use $commit-changes to commit the current worktree changes."

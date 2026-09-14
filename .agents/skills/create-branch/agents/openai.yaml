@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Branch"
+  short_description: "Create a new Git branch safely"
+  default_prompt: "Use $create-branch to create a new branch for this work."

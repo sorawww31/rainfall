@@ -1,0 +1,4 @@
+interface:
+  display_name: "KaggleリソースImport"
+  short_description: "Competition・Dataset・Model・Notebookをinputへ取得"
+  default_prompt: "$import-kaggle-resource を使って、指定した Kaggle リソースを ./input の規則どおりに安全に取得してください。"

@@ -1,0 +1,19 @@
+{
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "kaggle_api_token",
+      "description": "Kaggle API token for https://www.kaggle.com/mcp",
+      "password": true
+    }
+  ],
+  "servers": {
+    "kaggle": {
+      "type": "http",
+      "url": "https://www.kaggle.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${input:kaggle_api_token}"
+      }
+    }
+  }
+}
