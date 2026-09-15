@@ -23,6 +23,7 @@ class Classifier:
                 y_train,
                 eval_X=validation_data[0],
                 eval_y=validation_data[1],
+                categorical_feature=["month"],
                 callbacks=[
                     lightgbm.early_stopping(
                         stopping_rounds=self.lgbm_params.get("early_stopping_rounds", 100),

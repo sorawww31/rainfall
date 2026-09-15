@@ -58,6 +58,26 @@ uv run python tools/download_dataset.py dataset owner/dataset-slug
 - 実験用スクリプトファイルを major バージョンごとにフォルダごとに管理 & 実験パラメータ設定を minor バージョンとしてファイルとして管理
    - 実験用スクリプトと実験パラメータ設定を同一フォルダで局所的に管理して把握しやすくする
 - dataclass を用いた config 定義を用いることで、エディタの補完機能を利用できるように
+## 提出方法
+```bash
+uv run kaggle competitions submit -c playground-series-s5e3 -f outputs/exp000_sample/default/submission.csv  -m "Message"
+```
+## データ項目
+`input/competitions/playground-series-s5e3/train.csv` の主な項目は次の通りです。
+
+| 項目 | 説明 |
+| --- | --- |
+| `pressure` | 気圧 |
+| `maxtemp` | 最高気温 |
+| `temparature` | 平均気温|
+| `mintemp` | 最低気温 |
+| `dewpoint` | 露点温度 |
+| `humidity` | 湿度 |
+| `cloud` | 雲量 |
+| `sunshine` | 日照時間 |
+| `winddirection` | 風向 |
+| `windspeed` | 風速 |
+| `rainfall` | 降雨の有無。`1` は雨あり、`0` は雨なし |
 ## フォーク源から追加した機能
 - 実験管理が容易に
   - ```experiments/{major_exp_name}```単位での実験管理

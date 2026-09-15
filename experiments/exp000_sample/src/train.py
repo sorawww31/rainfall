@@ -9,8 +9,16 @@ from src.psocess_data import preprocess
 def train(cfg, logger) -> None:
 
     train_df = pd.read_csv(Path(cfg.env.input_dir) / cfg.exp.train_csv_path)
+    train_base_df = pd.read_csv(
+        Path(cfg.env.input_dir) / "datasets/subho117/rainfall-prediction-using-machine-learning/Rainfall.csv"
+    )
+    train_base_df.columns = train_base_df.columns.str.strip()
+
     X = train_df.drop(columns=["rainfall"])
     y = train_df["rainfall"]
+
+    X_base = train_base_df.drop(columns=["rainfall"])
+    y_base = train_base_df["rainfall"].map({"yes": 1, "no": 0}).astype(int)
 
     del train_df
     cv = GroupKFold(n_splits=cfg.exp.n_splits, shuffle=True, random_state=cfg.exp.seed)
@@ -23,6 +31,9 @@ def train(cfg, logger) -> None:
 
         X_train, y_train = X.iloc[train_idx], y.iloc[train_idx]
         X_valid, y_valid = X.iloc[valid_idx], y.iloc[valid_idx]
+
+        X_train = pd.concat([X_train, X_base])
+        y_train = pd.concat([y_train, y_base])
         # preprocessor = build_preprocessor()
         # X_train = preprocessor.fit_transform(X_train)
         # X_valid = preprocessor.transform(X_valid)
@@ -33,7 +44,7 @@ def train(cfg, logger) -> None:
         y_pred = model.predict(X_valid)
         accuracy = roc_auc_score(y_valid, y_pred)
         results.append(accuracy)
-        logger.info(f"Fold {fold} ROC AUC score: {accuracy:.4f}")
+
     for fold, score in zip(cfg.exp.folds, results):
         logger.info(f"Fold {fold} ROC AUC score: {score:.4f}")
     logger.info(f"Mean ROC AUC score: {sum(results) / len(results):.4f}")
