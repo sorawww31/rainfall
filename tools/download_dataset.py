@@ -9,19 +9,18 @@ import os
 import shlex
 import shutil
 import time
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable, NamedTuple
+from typing import NamedTuple
 
 from dotenv import load_dotenv
+
 load_dotenv()
 
-import kagglehub  # noqa: E402
-import kagglehub.clients as kagglehub_clients  # noqa: E402
-import requests  # noqa: E402
-
-from kagglehub.config import get_cache_folder  # noqa: E402
-
-
+import kagglehub
+import kagglehub.clients as kagglehub_clients
+import requests
+from kagglehub.config import get_cache_folder
 
 RESOURCE_ALIASES = {
     "d": "dataset",
@@ -61,17 +60,21 @@ RETRYABLE_DOWNLOAD_ERRORS = (
     TimeoutError,
 )
 
+
 class DownloadRuntimeConfig(NamedTuple):
     connect_timeout_seconds: int
     read_timeout_seconds: int
     max_attempts: int
     retry_wait_seconds: int
 
+
 def project_root() -> Path:
     return Path(__file__).resolve().parents[1]
 
+
 def input_root() -> Path:
     return project_root() / "input"
+
 
 def parse_env_int(name: str, default: int, *, minimum: int) -> int:
     raw_value = os.getenv(name)
@@ -103,6 +106,7 @@ def apply_kagglehub_timeouts(config: DownloadRuntimeConfig) -> None:
     # kagglehub 1.0.0 hard-codes a 15s read timeout for resumed downloads.
     kagglehub_clients.DEFAULT_CONNECT_TIMEOUT = config.connect_timeout_seconds
     kagglehub_clients.DEFAULT_READ_TIMEOUT = config.read_timeout_seconds
+
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -302,6 +306,7 @@ def download_kernel(handle: str, metadata: bool, force: bool) -> Path:
     api.authenticate()
     downloaded = api.kernels_pull(handle, path=str(target_dir), metadata=metadata, quiet=False)
     return Path(downloaded)
+
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
